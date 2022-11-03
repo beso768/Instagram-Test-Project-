@@ -8,6 +8,7 @@ import {
   Param,
   Query,
   NotFoundException,
+  BadRequestException,
   Session,
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
@@ -26,13 +27,8 @@ export class UsersController {
     private authService: AuthService,
   ) {}
 
-  // @Get('/whoami')
-  // whoAmI(@Session() session: any) {
-  //   return this.usersService.findOne(session.userId);
-  // }
-
   @Get('/whoami')
-  whoAmI(@CurrentUser() user: string) {
+  async whoAmI(@CurrentUser() user: string) {
     return user;
   }
 
@@ -44,8 +40,6 @@ export class UsersController {
   @Post('/signup')
   async createUser(@Body() body: CreateUserDto, @Session() session: any) {
     const user = await this.authService.signup(body);
-    console.log(session);
-
     session.userId = user.id;
     return user;
   }
@@ -67,12 +61,16 @@ export class UsersController {
   }
 
   @Get()
-  findAllUsers(@Query('email') email: string) {
-    return this.usersService.find(email);
+  findAllUsers(@Query('username') username: string) {
+    return this.usersService.find(username);
   }
 
   @Delete('/:id')
-  removeUser(@Param('id') id: string) {
+  removeUser(@Param('id') id: string, @CurrentUser() user: number) {
+    if (user !== parseInt(id)) {
+      throw new BadRequestException('You can not delete this account');
+    }
+
     return this.usersService.remove(parseInt(id));
   }
 

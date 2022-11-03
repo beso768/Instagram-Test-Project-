@@ -5,16 +5,18 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { User } from './users/user.entity';
 import { Tag } from './tags/tags.entity';
+import { TagsModule } from './tags/tags.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'db.sqlite',
-      synchronize: true,
       entities: [User, Tag],
+      synchronize: true,
     }),
     UsersModule,
+    TagsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
