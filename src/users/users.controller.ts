@@ -8,8 +8,8 @@ import {
   Param,
   Query,
   NotFoundException,
-  BadRequestException,
   Session,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
@@ -18,6 +18,8 @@ import { Serialize } from '../interceptors/serialize.interceptor';
 import { UserDto } from './dtos/user.dto';
 import { AuthService } from './auth.service';
 import { CurrentUser } from './decorators/current-user.decorator';
+import { User } from './user.entity';
+import { AuthGuard } from '../guards/auth.guard';
 
 @Controller('auth')
 @Serialize(UserDto)
@@ -28,7 +30,8 @@ export class UsersController {
   ) {}
 
   @Get('/whoami')
-  async whoAmI(@CurrentUser() user: string) {
+  @UseGuards(AuthGuard)
+  whoAmI(@CurrentUser() user: User) {
     return user;
   }
 
@@ -39,7 +42,7 @@ export class UsersController {
 
   @Post('/signup')
   async createUser(@Body() body: CreateUserDto, @Session() session: any) {
-    const user = await this.authService.signup(body);
+    const user = await this.authService.signup(body.email, body.password);
     session.userId = user.id;
     return user;
   }
@@ -61,16 +64,12 @@ export class UsersController {
   }
 
   @Get()
-  findAllUsers(@Query('username') username: string) {
-    return this.usersService.find(username);
+  findAllUsers(@Query('email') email: string) {
+    return this.usersService.find(email);
   }
 
   @Delete('/:id')
-  removeUser(@Param('id') id: string, @CurrentUser() user: number) {
-    if (user !== parseInt(id)) {
-      throw new BadRequestException('You can not delete this account');
-    }
-
+  removeUser(@Param('id') id: string) {
     return this.usersService.remove(parseInt(id));
   }
 
