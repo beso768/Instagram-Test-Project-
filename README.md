@@ -7,6 +7,8 @@ $ npm install
 # watch mode
 $ npm run start:dev
 
+or
+
 ### Create a new user
 POST https://fathomless-cove-59941.herokuapp.com/auth/signup
 content-type: application/json
