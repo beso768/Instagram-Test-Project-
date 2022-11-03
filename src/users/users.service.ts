@@ -21,12 +21,8 @@ export class UsersService {
     return this.repo.findOne(id);
   }
 
-  find(username: string) {
-    return this.repo.find({ username });
-  }
-
-  findByEmail(email: string) {
-    return this.repo.findOne({ email });
+  find(email: string) {
+    return this.repo.find({ email });
   }
 
   async update(id: number, attrs: Partial<User>) {

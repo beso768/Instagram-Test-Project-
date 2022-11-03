@@ -5,8 +5,6 @@ import {
   Post,
   Body,
   Delete,
-  Patch,
-  Param,
   UseGuards,
 } from '@nestjs/common';
 import { TagsService } from './tag.service';
@@ -14,7 +12,6 @@ import { CreateTagDto } from './dtos/create-tag.dto';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { CurrentUser } from './../users/decorators/current-user.decorator';
 import { User } from './../users/user.entity';
-import { UpdateTagDto } from './dtos/update-tag.dto';
 
 @Controller('tags')
 export class TagsController {
@@ -27,30 +24,17 @@ export class TagsController {
 
   @Post()
   @UseGuards(AuthGuard)
-  async createTag(@Body() body: CreateTagDto, @CurrentUser() user: User) {
+  async createUser(@Body() body: CreateTagDto, @CurrentUser() user: User) {
     const Tag = await this.tagsService.create(body, user);
     return Tag;
   }
 
-  @Patch('/:id')
-  @UseGuards(AuthGuard)
-  updateTag(
-    @Param('id') id: string,
-    @Body() body: UpdateTagDto,
-    @CurrentUser() user: number,
-  ) {
-    return this.tagsService.updateName(id, body.name, user);
-  }
+  // @Delete('/:id')
+  // removeUser(@Param('id') id: string, @CurrentUser() user: number) {
+  //   if (user !== parseInt(id)) {
+  //     throw new BadRequestException('You can not delete this account');
+  //   }
 
-  @Patch('/increase/:id')
-  @UseGuards(AuthGuard)
-  increaseMediaCount(@Param('id') id: string, @CurrentUser() user: number) {
-    return this.tagsService.increaseMediaCount(id, user);
-  }
-
-  @Delete('/:id')
-  @UseGuards(AuthGuard)
-  removeTag(@Param('id') id: string, @CurrentUser() user: number) {
-    return this.tagsService.remove(id, user);
-  }
+  //   return this.usersService.remove(parseInt(id));
+  // }
 }

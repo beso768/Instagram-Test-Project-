@@ -16,9 +16,8 @@ export class AuthService {
 
   async signup(body: CreateUserDto) {
     // See if email is in use
-    const users = await this.usersService.findByEmail(body.email);
-
-    if (users) {
+    const users = await this.usersService.find(body.email);
+    if (users.length) {
       throw new BadRequestException('email in use');
     }
 
@@ -35,8 +34,7 @@ export class AuthService {
   }
 
   async signin(email: string, password: string) {
-    const user = await this.usersService.findByEmail(email);
-
+    const [user] = await this.usersService.find(email);
     if (!user) {
       throw new NotFoundException('user not found');
     }

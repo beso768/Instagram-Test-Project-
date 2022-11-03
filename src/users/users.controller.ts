@@ -63,8 +63,8 @@ export class UsersController {
   }
 
   @Get()
-  findAllUsers(@Query('username') username: string) {
-    return this.usersService.find(username);
+  findAllUsers(@Query('email') email: string) {
+    return this.usersService.find(email);
   }
 
   @Delete('/:id')
