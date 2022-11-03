@@ -1,3 +1,4 @@
+import { Tag } from 'src/tags/tags.entity';
 import {
   AfterInsert,
   AfterRemove,
@@ -7,7 +8,6 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
 } from 'typeorm';
-import { Report } from '../reports/report.entity';
 
 @Entity()
 export class User {
@@ -20,11 +20,14 @@ export class User {
   @Column()
   password: string;
 
-  @Column({ default: true })
-  admin: boolean;
+  @Column()
+  username: string;
 
-  @OneToMany(() => Report, (report) => report.user)
-  reports: Report[];
+  @Column()
+  profile_pic_url: string;
+
+  @OneToMany(() => Tag, (tag) => tag.user)
+  tags: Tag[];
 
   @AfterInsert()
   logInsert() {
