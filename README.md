@@ -1,73 +1,94 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
-
-```bash
-$ npm install
-```
-
 ## Running the app
 
 ```bash
 # development
-$ npm run start
+$ npm install
 
 # watch mode
 $ npm run start:dev
 
-# production mode
-$ npm run start:prod
+### Create a new user
+POST http://localhost:3000/auth/signup
+content-type: application/json
+
+{
+  "username" : "username1",
+  "email": "email1@test.com",
+  "profile_pic_url": "https://instagram.ftbs6-2.fna.fbcdn.net/v/t51.2885-19/288951379_410816231096129_2821871128473994802_n.jpg?stp=dst-jpg_s150x150&_nc_ht=instagram.ftbs6-2.fna.fbcdn.net&_nc_cat=1&_nc_ohc=5zSUzqEY_1UAX-XrUx7&edm=AHG7ALcBAAAA&ccb=7-5&oh=00_AfChYa_n5Fph4utW255gnq-uQOw3uBDlnihayadNJb5a2A&oe=6366BCC9&_nc_sid=5cbaad",
+  "password": "12345"
+}
+
+### Sign in as an existing user
+POST http://localhost:3000/auth/signin
+content-type: application/json
+
+{
+  "email": "email1@test.com",
+  "password": "12345"
+}
+
+### Get the currently signed in user id
+GET http://localhost:3000/auth/whoami
+
+### Sign out
+POST http://localhost:3000/auth/signout
+
+### Find a particular user with a given ID
+GET http://localhost:3000/auth/1
+
+### Find all users with a given name
+GET http://localhost:3000/auth?username=username1
+
+### Delete a user given id
+DELETE http://localhost:3000/auth/1
+
+### Update a user
+PATCH http://localhost:3000/auth/1
+content-type: application/json
+
+{
+  "profile_pic_url": "newUrl",
+  "username": "newUsername"
+}
+
+
+
+### Create a new tag
+###(User must be signed in)
+POST http://localhost:3000/tags
+content-type: application/json
+
+{
+  "name": "tag2"
+}
+
+
+
+### get tags by name
+GET http://localhost:3000/tags?name=tag1
+content-type: application/json
+
+
+
+###Update tag name
+PATCH http://localhost:3000/tags/1
+content-type: application/json
+
+{
+  "name": "tag1"
+}
+
+###increase media count by id (user should have differend id)
+PATCH http://localhost:3000/tags/increase/1
+content-type: application/json
+
+### Delete a tag given id
+DELETE http://localhost:3000/tags/1
+
+
+
+You can test the application directly requests.http files with Rest Cliet vscode extension or with postman
+
+
+
 ```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
