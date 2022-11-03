@@ -8,7 +8,6 @@ import {
   Param,
   Query,
   NotFoundException,
-  BadRequestException,
   Session,
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
@@ -27,8 +26,13 @@ export class UsersController {
     private authService: AuthService,
   ) {}
 
+  // @Get('/whoami')
+  // whoAmI(@Session() session: any) {
+  //   return this.usersService.findOne(session.userId);
+  // }
+
   @Get('/whoami')
-  async whoAmI(@CurrentUser() user: string) {
+  whoAmI(@CurrentUser() user: string) {
     return user;
   }
 
@@ -68,11 +72,7 @@ export class UsersController {
   }
 
   @Delete('/:id')
-  removeUser(@Param('id') id: string, @CurrentUser() user: number) {
-    if (user !== parseInt(id)) {
-      throw new BadRequestException('You can not delete this account');
-    }
-
+  removeUser(@Param('id') id: string) {
     return this.usersService.remove(parseInt(id));
   }
 

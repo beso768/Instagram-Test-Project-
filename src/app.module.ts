@@ -4,7 +4,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { User } from './users/user.entity';
-import { TagsModule } from './tags/tags.module';
 import { Tag } from './tags/tags.entity';
 
 @Module({
@@ -16,7 +15,6 @@ import { Tag } from './tags/tags.entity';
       entities: [User, Tag],
     }),
     UsersModule,
-    TagsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
