@@ -4,7 +4,7 @@ POST http://localhost:3000/tags
 content-type: application/json
 
 {
-  "name": "tag3"
+  "name": "tag2"
 }
 
 
@@ -14,3 +14,18 @@ GET http://localhost:3000/tags?name=tag1
 content-type: application/json
 
 
+
+###Update tag name
+PATCH http://localhost:3000/tags/1
+content-type: application/json
+
+{
+  "name": "tag1"
+}
+
+###increase media count by id (user should have differend id)
+PATCH http://localhost:3000/tags/increase/1
+content-type: application/json
+
+### Delete a tag given id
+DELETE http://localhost:3000/tags/1

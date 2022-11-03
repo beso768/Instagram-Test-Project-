@@ -4,7 +4,7 @@ content-type: application/json
 
 {
   "username" : "username1",
-  "email": "email3@test.com",
+  "email": "email1@test.com",
   "profile_pic_url": "https://instagram.ftbs6-2.fna.fbcdn.net/v/t51.2885-19/288951379_410816231096129_2821871128473994802_n.jpg?stp=dst-jpg_s150x150&_nc_ht=instagram.ftbs6-2.fna.fbcdn.net&_nc_cat=1&_nc_ohc=5zSUzqEY_1UAX-XrUx7&edm=AHG7ALcBAAAA&ccb=7-5&oh=00_AfChYa_n5Fph4utW255gnq-uQOw3uBDlnihayadNJb5a2A&oe=6366BCC9&_nc_sid=5cbaad",
   "password": "12345"
 }
@@ -14,7 +14,7 @@ POST http://localhost:3000/auth/signin
 content-type: application/json
 
 {
-  "email": "email3@test.com",
+  "email": "email1@test.com",
   "password": "12345"
 }
 
@@ -27,8 +27,8 @@ POST http://localhost:3000/auth/signout
 ### Find a particular user with a given ID
 GET http://localhost:3000/auth/1
 
-### Find all users with a given email
-GET http://localhost:3000/auth?email=email1@test.com
+### Find all users with a given name
+GET http://localhost:3000/auth?username=username1
 
 ### Delete a user given id
 DELETE http://localhost:3000/auth/1
@@ -38,7 +38,6 @@ PATCH http://localhost:3000/auth/1
 content-type: application/json
 
 {
-  "password": "newPassword",
   "profile_pic_url": "newUrl",
   "username": "newUsername"
 }
