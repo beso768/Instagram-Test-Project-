@@ -8,7 +8,7 @@ $ npm install
 $ npm run start:dev
 
 ### Create a new user
-POST http://localhost:3000/auth/signup
+POST https://fathomless-cove-59941.herokuapp.com/auth/signup
 content-type: application/json
 
 {
@@ -19,7 +19,7 @@ content-type: application/json
 }
 
 ### Sign in as an existing user
-POST http://localhost:3000/auth/signin
+POST https://fathomless-cove-59941.herokuapp.com/auth/signin
 content-type: application/json
 
 {
@@ -28,22 +28,22 @@ content-type: application/json
 }
 
 ### Get the currently signed in user id
-GET http://localhost:3000/auth/whoami
+GET https://fathomless-cove-59941.herokuapp.com/auth/whoami
 
 ### Sign out
-POST http://localhost:3000/auth/signout
+POST https://fathomless-cove-59941.herokuapp.com/auth/signout
 
 ### Find a particular user with a given ID
-GET http://localhost:3000/auth/1
+GET https://fathomless-cove-59941.herokuapp.com/auth/1
 
 ### Find all users with a given name
-GET http://localhost:3000/auth?username=username1
+GET https://fathomless-cove-59941.herokuapp.com/auth?username=username1
 
 ### Delete a user given id
-DELETE http://localhost:3000/auth/1
+DELETE https://fathomless-cove-59941.herokuapp.com/auth/1
 
 ### Update a user
-PATCH http://localhost:3000/auth/1
+PATCH https://fathomless-cove-59941.herokuapp.com/auth/1
 content-type: application/json
 
 {
@@ -55,7 +55,7 @@ content-type: application/json
 
 ### Create a new tag
 ###(User must be signed in)
-POST http://localhost:3000/tags
+POST https://fathomless-cove-59941.herokuapp.com/tags
 content-type: application/json
 
 {
@@ -65,13 +65,13 @@ content-type: application/json
 
 
 ### get tags by name
-GET http://localhost:3000/tags?name=tag1
+GET https://fathomless-cove-59941.herokuapp.com/tags?name=tag1
 content-type: application/json
 
 
 
 ###Update tag name
-PATCH http://localhost:3000/tags/1
+PATCH https://fathomless-cove-59941.herokuapp.com/tags/1
 content-type: application/json
 
 {
@@ -79,15 +79,15 @@ content-type: application/json
 }
 
 ###increase media count by id (user should have differend id)
-PATCH http://localhost:3000/tags/increase/1
+PATCH https://fathomless-cove-59941.herokuapp.com/tags/increase/1
 content-type: application/json
 
 ### Delete a tag given id
-DELETE http://localhost:3000/tags/1
+DELETE https://fathomless-cove-59941.herokuapp.com/tags/1
 
 
 
-You can test the application directly requests.http files with Rest Cliet vscode extension or with postman
+You can test the application code with requests.http files with vscode extension - Rest Client
 
 
 

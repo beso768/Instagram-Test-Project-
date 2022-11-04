@@ -75,7 +75,14 @@ export class UsersController {
   }
 
   @Patch('/:id')
-  updateUser(@Param('id') id: string, @Body() body: UpdateUserDto) {
+  updateUser(
+    @Param('id') id: string,
+    @Body() body: UpdateUserDto,
+    @CurrentUser() user: number,
+  ) {
+    if (user !== parseInt(id)) {
+      throw new BadRequestException('You can not modify this account');
+    }
     return this.usersService.update(parseInt(id), body);
   }
 }

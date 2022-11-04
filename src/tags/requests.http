@@ -4,7 +4,7 @@ POST http://localhost:3000/tags
 content-type: application/json
 
 {
-  "name": "tag2"
+  "name": "tag1"
 }
 
 
