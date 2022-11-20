@@ -16,10 +16,11 @@ export class AuthService {
 
   async signup(body: CreateUserDto) {
     // See if email is in use
+
     const users = await this.usersService.findByEmail(body.email);
 
     if (users) {
-      throw new BadRequestException('email in use');
+      throw new BadRequestException(['email in use']);
     }
 
     // Hash the users password
@@ -28,7 +29,6 @@ export class AuthService {
 
     const hash = (await scrypt(body.password, salt, 32)) as Buffer;
     const result = salt + '.' + hash.toString('hex');
-
     const user = await this.usersService.create(body, result);
 
     return user;
@@ -38,7 +38,7 @@ export class AuthService {
     const user = await this.usersService.findByEmail(email);
 
     if (!user) {
-      throw new NotFoundException('user not found');
+      throw new NotFoundException(['user not found']);
     }
 
     const [salt, storedHash] = user.password.split('.');
@@ -46,7 +46,7 @@ export class AuthService {
     const hash = (await scrypt(password, salt, 32)) as Buffer;
 
     if (storedHash !== hash.toString('hex')) {
-      throw new BadRequestException('bad password');
+      throw new BadRequestException(['bad password']);
     }
 
     return user;

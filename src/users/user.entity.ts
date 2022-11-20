@@ -23,7 +23,7 @@ export class User {
   @Column()
   username: string;
 
-  @Column()
+  @Column({ nullable: true })
   profile_pic_url: string;
 
   @OneToMany(() => Tag, (tag) => tag.user)

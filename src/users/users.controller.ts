@@ -28,7 +28,11 @@ export class UsersController {
   ) {}
 
   @Get('/whoami')
-  async whoAmI(@CurrentUser() user: string) {
+  async whoAmI(@CurrentUser() userId: string) {
+    const user = await this.usersService.findOne(parseInt(userId));
+    if (!user) {
+      throw new NotFoundException('user not found');
+    }
     return user;
   }
 
@@ -39,6 +43,8 @@ export class UsersController {
 
   @Post('/signup')
   async createUser(@Body() body: CreateUserDto, @Session() session: any) {
+    console.log(body);
+
     const user = await this.authService.signup(body);
     session.userId = user.id;
     return user;
